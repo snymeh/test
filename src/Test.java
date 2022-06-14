@@ -5,39 +5,35 @@ import java.util.Random;
 import javax.swing.*;
 
 public class Test {
-    static private final Random rand = new Random();
-    ImageIcon icon=new ImageIcon("book.jpg");
-    private int arrayManager = 0;
-    private int rand2;
+    static private final Random random = new Random();
+    ImageIcon icon = new ImageIcon("book.jpg");
+    private int randomQuestionIndex;
     //ImageIcon icon;
     final String[] answer1 = {"option1 for Q1", "option2 for Q1", "option3 for Q1", "option4 for Q1"};
     final String[] answer2 = {"option1 for Q2", "option2 for Q2", "option3 for Q2", "option4for Q2"};
     final String[] answer3 = {"option1 for Q3", "option2 for Q3", "option3 for Q3", "option4 for Q3"};
     final String[] answer4 = {"option1 for Q4", "option2 for Q4", "option3 for Q4", "option4 for Q4"};
-    static private int[] uniqeQuestion = {4, 4, 4, 4};
+    static private int[] uniqeQuestions = {4, 4, 4, 4};
     static final String questions[] = {"Question1", "Questions2", "Question3", "Question4"};
     static final String wrongAnswers[] = {"No. Please try again", "Wrong. Try once more", "Don't give up!", "No. Keep trying"};
     static final String rightAnswers[] = {"Excellent!", "Good!", "Keep up the good work!", "Nice work!"};
     static private String checkAnswer, input;
     private boolean found = false;
-    String answer;
+
 
     public void simulateQuestion() { //pick one of four questoins randomly
-        for (arrayManager = 0; arrayManager < 4; ) {
-            rand2 = rand.nextInt(4);
-            for (int i : uniqeQuestion) { //check value to prevent reputation
-                if (!(contains(uniqeQuestion, rand2))) {
-                    answer = (String) JOptionPane.showInputDialog(null, questions[rand2],
-                            "Question", JOptionPane.QUESTION_MESSAGE, icon, answer1, answer1[0]);
-                    uniqeQuestion[arrayManager] = rand2; //store values to prevent reputation
-                     checkAnswer(answer);
-                     arrayManager++;
-                }
+        for (int i = 0; i < uniqeQuestions.length; ) {
+            randomQuestionIndex = random.nextInt(uniqeQuestions.length);
+
+            if (!(contains(uniqeQuestions, randomQuestionIndex))) {
+                String answer = (String) JOptionPane.showInputDialog(null, questions[randomQuestionIndex],
+                        "Question", JOptionPane.QUESTION_MESSAGE, icon, answer1, answer1[0]);
+                uniqeQuestions[i] = randomQuestionIndex; //store values to prevent reputation
+                checkAnswer(answer);
+                i++;
             }
         }
     }
-
-
 
 
     public void checkAnswer(String checkAnswer) {
@@ -56,7 +52,7 @@ public class Test {
 
     void generateMessage(boolean check) {
         if (check == true) {
-            switch (rand2) {
+            switch (randomQuestionIndex) {
                 case 0:
                     input = rightAnswers[0];
                     JOptionPane.showMessageDialog(null, "Excellent!");
@@ -75,7 +71,7 @@ public class Test {
                     break;
             }
         } else if (check == false) {
-            switch (rand2) {
+            switch (randomQuestionIndex) {
                 case 0:
                     input = wrongAnswers[0];
                     JOptionPane.showMessageDialog(null, "No. Please try again");

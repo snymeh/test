@@ -8,7 +8,8 @@ public class Main {
         ImageIcon icon=new ImageIcon("book.jpg");
 
         String n;
-        Test test = new Test();
+        Test1 test = new Test1();
+//        Test test = new Test();
 
 
      test.simulateQuestion();
